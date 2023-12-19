@@ -18,11 +18,9 @@ export class App extends Component {
       alert(`${formData.name} is already in contacts`);
       return;
     }
-    const id = uuidv4();
-    const finalProfil = { ...formData, id: id };
     this.setState(prevState => {
       return {
-        contacts: [...prevState.contacts, finalProfil],
+        contacts: [...prevState.contacts, { ...formData, id: uuidv4() }],
       };
     });
   };
@@ -32,11 +30,9 @@ export class App extends Component {
   };
 
   handleDeleteContacts = profileId => {
-    console.log(profileId);
-
-    this.setState({
-      contacts: this.state.contacts.filter(contact => contact.id !== profileId),
-    });
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== profileId),
+    }));
   };
 
   render() {
